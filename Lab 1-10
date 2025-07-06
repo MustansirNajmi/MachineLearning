@@ -1,0 +1,17 @@
+#Lab 2
+
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score, precision_score, recall_score
+iris = load_iris()
+XTrain, XTest, YTrain, YTest = train_test_split(iris.data, iris.target, test_size=0.5, random_state=42)
+dtc = DecisionTreeClassifier()
+dtc.fit(XTrain, YTrain)
+YPred = dtc.predict(XTest)
+Accuracy = accuracy_score(YTest, YPred)
+Precision = precision_score(YTest, YPred, average='weighted')
+Recall = recall_score(YTest, YPred, average='weighted')
+print(f'Accuracy: {Accuracy}')
+print(f'Precision: {Precision}')
+print(f'Recall: {Recall}')
