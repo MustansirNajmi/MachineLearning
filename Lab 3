@@ -1,19 +1,32 @@
-# Supervised Learning – Decision Tree Classifier 
+# Naive Bayes Classifier 
 
 
 
-from sklearn.datasets import load_iris
+from sklearn.naive_bayes import GaussianNB
+from sklearn.metrics import accuracy_score, confusion_matrix, precision_score, recall_score
 from sklearn.model_selection import train_test_split
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.metrics import accuracy_score, precision_score, recall_score
-iris = load_iris()
-XTrain, XTest, YTrain, YTest = train_test_split(iris.data, iris.target, test_size=0.5, random_state=42)
-dtc = DecisionTreeClassifier()
-dtc.fit(XTrain, YTrain)
-YPred = dtc.predict(XTest)
+from sklearn.datasets import make_classification
+import numpy as np
+
+NPRANDOMSTATE = 42
+np.random.seed(NPRANDOMSTATE)
+
+X, Y = make_classification(
+n_samples=1000,
+n_features=4,
+n_classes=2,
+n_clusters_per_class=1,
+random_state=NPRANDOMSTATE
+)
+XTrain, XTest, YTrain, YTest = train_test_split(
+X, Y, test_size=0.2, random_state=NPRANDOMSTATE
+)
+Model = GaussianNB()
+Model.fit(XTrain, YTrain)
+YPred = Model.predict(XTest)
 Accuracy = accuracy_score(YTest, YPred)
-Precision = precision_score(YTest, YPred, average='weighted')
-Recall = recall_score(YTest, YPred, average='weighted')
-print(f'Accuracy: {Accuracy}')
-print(f'Precision: {Precision}')
-print(f'Recall: {Recall}')
+Precision = precision_score(YTest, YPred)
+Recall = recall_score(YTest, YPred)
+print(f"Accuracy: {Accuracy:.4f}")
+print(f"Precision: {Precision:.4f}")
+print(f"Recall: {Recall:.4f}")
