@@ -1,0 +1,29 @@
+# K-Nearest Neighbors (KNN) 
+ 
+
+from sklearn.datasets import load_iris
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracyscore, precisionscore, recallscore,
+
+iris = load_iris()
+
+df = pd.DataFrame(data=iris.data, columns=iris.feature_names)
+df['target'] = iris.target
+
+X = df.drop('target', axis=1)
+y = df['target']
+Xtrain, Xtest, ytrain, ytest = traintestsplit(X, y, testsize=0.5, randomstate=42)
+
+knn = KNeighborsClassifier()
+knn.fit(Xtrain, ytrain)
+
+accuracy = accuracyscore(ytest, ypred)
+precision = precision_score(ytest, ypred, average='weighted')
+recall = recallscore(ytest, ypred, average='weighted')
+
+print("\nModel Evaluation:")
+print(f"Accuracy: {accuracy:.4f}")
+print(f"Precision: {precision:.4f}")
+print(f"Recall: {recall:.4f}")
